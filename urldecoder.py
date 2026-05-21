@@ -4,20 +4,27 @@ import base64 #used to decode/encode filenames associated with strip images
 import requests #used to GET strip images from the Comics Kingdom website
 import shutil #used to write GET response into .jpg files
 
-#This script works by guessing at a range of numbers associated with a strip image URL, which changes only once per week. Therefore,
-#I think it makes more sense to define the encoded URL as a global variable, rather than supplying it as a command line input.
-ENCODED_URL = "https://comicskingdom.com/_next/image?url=https%3A%2F%2Fwp.comicskingdom.com%2Fcomicskingdom-redesign-uploads-production%2F2025%2F05%2FY2tGbGFzaCBHb3Jkb24tRU5HLTUxMTU0MTU.jpg&w=3840&q=75"
-RANGE = 12 #establishing how wide a range we want to set on either side of our link fishing scheme. 12 seems to be wide enough.
+RANGE = 80 #establishing how wide a range we want to set on either side of our link fishing scheme. 12 seems to be wide enough.
 COMIC_PREFIX = "ckFlash Gordon-ENG-" #the prefix of the comic one wants to download--in this case, it's the prefix for Flash Gordon.
 
 
-def reformat_url():
+def get_input():
+    '''
+    Prompts the user to paste the image URL for today's Flash
+    Gordon strip, and returns their input as a string.
+    '''
+    print("Copy-paste the image URL for today's Flash Gordon strip below:")
+    inputString = str(input())
+    return inputString
+
+
+def reformat_url(encodedURL):
     '''
     Reformats a Comics Kingdom image URL by decoding the
     JavaScript-encoding, and removing all but the actual
     address of the image.
     '''
-    url = unquote(ENCODED_URL)
+    url = unquote(encodedURL)
     startIndex = url.find("url=") + 4
     endIndex = url.find(".jpg") + 4
     url = url[startIndex:endIndex]
@@ -134,10 +141,15 @@ def get_week(imageName, imageNumber, url):
 
 
 def main ():
-    url = reformat_url()
-    imageName = get_image_name(url)
-    imageNumber = get_image_number(imageName)
-    get_week(imageName, imageNumber, url)
+    encodedURL = get_input()
+    #a simple try/except anticipating any incorrect user input.
+    try:
+        url = reformat_url(encodedURL)
+        imageName = get_image_name(url)
+        imageNumber = get_image_number(imageName)
+        get_week(imageName, imageNumber, url)
+    except:
+        print("Something went wrong. Please double-check the URL.")
     
     
 if __name__ == "__main__":
