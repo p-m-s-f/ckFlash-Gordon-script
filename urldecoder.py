@@ -4,7 +4,7 @@ import base64 #used to decode/encode filenames associated with strip images
 import requests #used to GET strip images from the Comics Kingdom website
 import shutil #used to write GET response into .jpg files
 
-RANGE = 80 #establishing how wide a range we want to set on either side of our link fishing scheme. 12 seems to be wide enough.
+RANGE = 80 #establishing how wide a range we want to set on either side of our link fishing scheme. 80 seems to be wide enough.
 COMIC_PREFIX = "ckFlash Gordon-ENG-" #the prefix of the comic one wants to download--in this case, it's the prefix for Flash Gordon.
 
 
