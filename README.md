@@ -1,6 +1,6 @@
 # Flash Gordon Forced Browsing Attack Script
 
-This Python script launches a forced browsing attack on the Comics Kingdom website to download *Flash Gordon* comic strips up to five days in advance.
+This Python script launches a forced browsing attack on the Comics Kingdom website to download [*Flash Gordon*](https://comicskingdom.com/flash-gordon) comic strips up to five days in advance.
 
 ## How does it work?
 
